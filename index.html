@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Türkiye Şehir ve İlçe Haritası</title>
+
+  <link rel="stylesheet" href="demo.css" />
+  <!-- JQEURY -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+  <!-- BOOTSTRAP -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  <!-- BOOTSTRAP #end -->
+
+  <script>
+    $(function(){
+      $('ul[tab] a').click(function(){
+        console.log($(this).parent().index())
+        $('.tab-container[tab=' + $(this).parents('ul').attr('tab') + '] .tab').addClass('hidden').removeClass('show');
+        $('.tab-container[tab=' + $(this).parents('ul').attr('tab') + '] .tab').eq($(this).parent().index()).removeClass('hidden').addClass('show');
+      });
+    })
+  </script>
+
+  <!-- turkey district map files -->
+  <script src="turkey-map/js/main.js"></script>
+  <link rel="stylesheet" href="turkey-map/style/style.css" />
+  <!-- turkey district map files #end -->
+
+
+  <!-- EXAMPLE JAVASCRIPT -->
+  <script type="text/javascript">
+    $(function(){
+
+      $('#turkey-map').on('click', '#turkey > g', function() { 
+        console.log($(this).attr('id')) // Get city name
+      });
+
+      $('#turkey-map').on('click', '#turkey > g > g', function() { 
+        console.log($(this).attr('id')) // Get district name
+      });
+
+      $('#turkey-map').on('click', '#turkey #Ankara #Keçiören', function() {
+        alert('Clicked Keçiören');
+      });
+
+    });
+  </script>
+  <!-- EXAMPLE JAVASCRIPT #end -->
+
+
+  <!-- EXAMPLE STYLE -->
+  <style>
+    .color1 {
+      fill: #ed145a !important;
+    }
+
+    .color2 {
+      fill: #0e10a3 !important;
+    }
+
+    .color3 {
+      fill: #a7e3da !important;
+    }
+  </style>
+  <!-- EXAMPLE STYLE #end -->
+
+
+</head>
+<body>
+  
+  <div 
+    style="width: 1120px;"
+    id="turkey-map" 
+    data-map="districts"
+    data-zoom="true"
+    data-map-color="62C09E">
+      <color id="Nilüfer" data-color="color1"></color>
+      <color id="Espiye" data-color="color2"></color>
+  </div>
+
+  
+  <div class="container">
+    <div class="row buttons">
+      <div class="col-sm-12 text-center">
+        <h1>🥳</h1>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container-fluid text-center">
+
+    <ul class="language-bar" tab="language">
+      <li><a href="javascript:;">English</a></li>
+      <li><a href="javascript:;">Türkçe</a></li>
+    </ul>
+
+    <div class="tab-container" tab="language">
+      <div class="tab" id="english">
+
+        <div class="card">
+          <h1>Turkey Districts Map <kbd>v1.2</kbd></h1>
+          <p>
+            This is districts svg map of Turkey. You can simply change the map color or tooltip data. You can add different colors to each district or city. This map is created with Sketch app by me (<a href="http://twitter.com/bqra">Bora Dan</a>). Send a message to me for anything to learn about this map! I hope you enjoy.
+          </p>
+        </div>
+        <ul class="list text-left">
+          <li>Firstly; start with copy the <kbd>/turkey-map</kbd> folder to your project directory.</li>
+          <li>Add Jquery library to your project if you don't have one.</li>
+          <li>Add turkey-map css and javascript file paths in your <kbd>&lt;head&gt;</kbd> tag. <b>Example; </b><br><br>
+            <pre>&lt;link rel="stylesheet" href="turkey-map/style/style.css"&gt;
+&lt;script src="turkey-map/js/main.js"&gt;&lt;/script&gt;</pre>
+          </li>
+          <li>Now you are ready for show the map. Just add <kbd>&lt;div id="turkey-map"&gt;&lt;/div&gt;</kbd> in your html file that you want to show</li>
+          <li>Turkey Districts Map allows properties more than one. Simply you can add html5 data attribute for these. The list of properties; <br><br>
+            <kbd>style="width: 1120px;"</kbd><br>
+            <samp>Simply you can change the width or height value of your map.</samp><br><br>
+
+            <kbd>data-map="districts"</kbd><br>
+            <samp>data-map attribute can get two values. 'districts' or 'city'. 'districts' shows districts name in tooltip. 'city' shows city name in tooltip.</samp><br><br>
+
+            <kbd>data-map-color="#333333"</kbd><br>
+            <samp>data-map-color can change the map color.</samp><br /><br />
+
+            <kbd>data-city="Iğdır"</kbd><br>
+            <samp>If you want to show only one city use data-city attribute and write exact name of the city that you want to show.</samp><br><br>
+
+            <kbd>data-zoom="true"</kbd><br>
+            <samp>When you add this attribute to your element the map will zoom to city that you clicked. (It doesn't work with data-city mode)</samp>
+          </li>
+          <li>If you want to run your own javascript function when you clicked the city on the map you can add these jquery lines in your javascript file.<br><br>
+            <pre>$('#turkey-map').on('click', '#turkey > g', function() {
+  console.log($(this).attr('id')) // Get city name
+});
+
+$('#turkey-map').on('click', '#turkey > g > g', function() {
+  console.log($(this).attr('id')) // Get district name
+});
+
+$('#turkey-map').on('click', '#turkey #Ankara', function() { 
+  [your code]
+});
+
+$('#turkey-map').on('click', '#turkey #Ankara #Keçiören', function() {
+  [your code]
+});
+    </pre>
+          </li>
+          <li>
+            If you want add different colors on cities or districts, you must add that colors as <kbd>&lt;color&gt;</kbd> element in <kbd>&lt;div id="turkey-map"&gt;</kbd> div element. <b>Example;</b><br><br>
+            <pre>&lt;div id="turkey-map" data-map="districts"&gt;
+  &lt;color id="Keçiören" data-color="color1"&gt;&lt;/color&gt;
+  &lt;color id="İstanbul" data-color="color2"&gt;&lt;/color&gt;
+  &lt;color id="İzmir" data-color="color3"&gt;&lt;/color&gt;
+&lt;/div&gt;</pre> <br>
+
+            Don't forget, before this, define your color classes in your .css file. <b>Example;</b><br><br>
+            <pre>.color1 { fill: #ed145a; }
+.color2 { fill: #d7a35a; }</pre>
+          </li>
+        </ul>
+
+        <div class="row support">
+            <div class="row buttons dark">
+              <div class="col-sm-6 text-left">
+                <h3>Free Lifetime Update & 6 Months Support</h3>
+              </div>
+              <div class="col-sm-6 text-right">
+                <a href="http://twitter.com/bqra" target="_blank" class="btn rounded">bqra@Twitter</a>
+                <a href="mailto:bora_dan@hotmail.com" class="btn rounded">bora_dan@hotmail.com</a>
+              </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tab" style="display: none;" id="turkish">
+
+        <div class="card">
+          <h1>Türkiye İlçe Haritası <kbd>v1.2</kbd></h1>
+          <p>
+            Türkiye ilçeleri için interaktif svg harita. Haritadaki şehir ve ilçe renklerini değiştirebilir, haritaya yakınlaşma aksiyonu ekleyebilir, yalnızca belirli bir şehir gösterme özelliklerini kullanabilirsiniz. Bu harita Sketch uygulaması kullanılarak benim tarafımdan hazırlanmıştır. (<a href="http://twitter.com/bqra">Bora Dan</a>). Daha fazla bilgi için benimle iletişime geçmekten çekinmeyin.
+          </p>
+        </div>
+        <ul class="list text-left">
+          <li>Ilk olarak <kbd>/turkey-map</kbd> klasörünü projenize kopyalalyın.</li>
+          <li>Eğer Jquery kütüphaneniz yoksa projenize ekleyin.</li>
+          <li><kbd>&lt;head&gt;</kbd> etiketinizin içine /turkey-map klasöründeki dosyaların yollarını ekleyin. <b>Örneğin; </b><br><br>
+            <pre>&lt;link rel="stylesheet" href="turkey-map/style/style.css"&gt;
+&lt;script src="turkey-map/js/main.js"&gt;&lt;/script&gt;</pre>
+          </li>
+          <li>Haritanız çalışmaya hazır. Artık yalnızca haritayı kullanmak istediğiniz alana <kbd>&lt;div id="turkey-map"&gt;&lt;/div&gt;</kbd> kodunu yapıştırın.</li>
+          <li>Türkiye ilçe haritasi çoklu özellikler desteklemektedir. Bu özellikler basitçe HTML data etiketleri kullanılarak belirtilir. Özelliklerin listesi şöyledir;<br><br>
+            <kbd>style="width: 1120px;"</kbd><br>
+            <samp>Basitçe haritanızın uzunluk ve yükseklik değerlerini css kullanarak verebilirsiniz.</samp><br><br>
+
+            <kbd>data-map="districts"</kbd><br>
+            <samp>data-map etiketi iki farklı değer alabilmektedir. 'districts' ya da 'city'. 'districts' tooltip içinde ilçelerin isimlerini gösterebilmenizi sağlar, 'city' ise şehir isimlerini.</samp><br><br>
+
+            <kbd>data-map-color="#333333"</kbd><br>
+            <samp>data-map-color ile tüm harita rengini değiştirebilirsiniz.</samp><br /><br />
+
+            <kbd>data-city="Iğdır"</kbd><br>
+            <samp>Eğer yalnızca bir şehir göstermek istiyorsanız, şehrin türkçe karakterlerle adını yazarak bu etiketi kullanabilirsiniz.</samp><br><br>
+
+            <kbd>data-zoom="true"</kbd><br>
+            <samp>Bu etiketi eklediğinizde harita tıklanılan şehre yakınlaşacaktır. (data-city etiketi kullanılıyorken çalışmaz.)</samp>
+          </li>
+          <li>Eğer bir şehre veya ilçeye tıklandığında kendi javascript veya jquery fonksiyonlarınızı yazmak istiyorsanız işinize yarayacak bazı örnekler şunlardır;<br><br>
+            <pre>$('#turkey-map').on('click', '#turkey > g', function() {
+  console.log($(this).attr('id')) // Get city name
+});
+
+$('#turkey-map').on('click', '#turkey > g > g', function() {
+  console.log($(this).attr('id')) // Get district name
+});
+
+$('#turkey-map').on('click', '#turkey #Ankara', function() { 
+  [your code]
+});
+
+$('#turkey-map').on('click', '#turkey #Ankara #Keçiören', function() {
+  [your code]
+});
+    </pre>
+          </li>
+          <li>
+            Eğer bazı şehir ve ilçelere farklı renkler atamak istiyorsanız, kendi <kbd>&lt;color&gt;</kbd> elementlerinizi <kbd>&lt;div id="turkey-map"&gt;</kbd> elementinin içine sıralayabilirsiniz. <b>Örneğin;</b><br><br>
+            <pre>&lt;div id="turkey-map" data-map="districts"&gt;
+  &lt;color id="Keçiören" data-color="color1"&gt;&lt;/color&gt;
+  &lt;color id="İstanbul" data-color="color2"&gt;&lt;/color&gt;
+  &lt;color id="İzmir" data-color="color3"&gt;&lt;/color&gt;
+&lt;/div&gt;</pre> <br>
+
+            Class isimlerini kullanabilmek için onları tanımlamayı da unutmayın. <b>Örneğin;</b><br><br>
+            <pre>.color1 { fill: #ed145a; }
+.color2 { fill: #d7a35a; }</pre>
+          </li>
+        </ul>
+
+        <div class="row support">
+            <div class="row buttons dark">
+              <div class="col-sm-6 text-left">
+                <h3>Ömürboyu güncelleme ve 6 aylık destek</h3>
+              </div>
+              <div class="col-sm-6 text-right">
+                <a href="http://twitter.com/bqra" target="_blank" class="btn rounded">bqra@Twitter</a>
+                <a href="mailto:bora_dan@hotmail.com" class="btn rounded">bora_dan@hotmail.com</a>
+              </div>
+          </div>
+        </div>
+        
+      </div>
+    
+    </div>
+
+  </div>
+
+  
+</body>
+</html>
